@@ -1,0 +1,5 @@
+title = 'Silium Tech'
+
+baseURL = 'https://silium.life/'
+languageCode = 'ko-kr'
+theme = "hugo-theme-nostyleplease"
