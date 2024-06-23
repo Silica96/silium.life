@@ -1,0 +1,25 @@
+[[entries]]
+title = "about me"
+
+[[entries.entries]]
+title = "DevOps Engineer"
+
+[[entries.entries]]
+title = "github repo"
+url = "https://github.com/Silica96"
+
+[[entries.entries]]
+title = "Ubuntu Korea LoCo Organize"
+
+[[entries]]
+title = "posts"
+
+[entries.post_list]
+limit = 5
+show_more = true
+show_more_text = "See archive..."
+show_more_url = "posts"
+
+[[entries]]
+title = "rss"
+url = "index.xml"
