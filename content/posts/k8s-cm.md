@@ -1,7 +1,7 @@
 +++
 title = 'k8s config map 업데이트 후  적용시간'
 date = 2024-06-23T20:27:34+09:00
-draft = true
+draft = false
 +++
 
 

@@ -2,18 +2,11 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on Silium Tech</title>
-    <link>http://localhost:1313/posts/</link>
+    <link>https://silium.life/posts/</link>
     <description>Recent content in Posts on Silium Tech</description>
     <generator>Hugo</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Sun, 23 Jun 2024 20:27:34 +0900</lastBuildDate>
-    <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>K8s Cm</title>
-      <link>http://localhost:1313/posts/k8s-cm/</link>
-      <pubDate>Sun, 23 Jun 2024 20:27:34 +0900</pubDate>
-      <guid>http://localhost:1313/posts/k8s-cm/</guid>
-      <description>test</description>
-    </item>
+    <lastBuildDate></lastBuildDate>
+    <atom:link href="https://silium.life/posts/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>
