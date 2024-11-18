@@ -2,11 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on Silium Tech</title>
-    <link>https://silium.life/posts/</link>
+    <link>http://localhost:1313/posts/</link>
     <description>Recent content in Posts on Silium Tech</description>
     <generator>Hugo</generator>
     <language>ko-kr</language>
-    <lastBuildDate></lastBuildDate>
-    <atom:link href="https://silium.life/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 23 Jun 2024 20:27:34 +0900</lastBuildDate>
+    <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>k8s config map 업데이트 후  적용시간</title>
+      <link>http://localhost:1313/posts/k8s-cm/</link>
+      <pubDate>Sun, 23 Jun 2024 20:27:34 +0900</pubDate>
+      <guid>http://localhost:1313/posts/k8s-cm/</guid>
+      <description>&lt;p&gt;컨피그맵을 deployment 에 마운트 하여 사용하는 설정에서&#xA;컨피그맵 업데이트 후 적용되는데에 실제 어느정도 걸리는지 먼저 테스트를 진행해보았습니다.&lt;/p&gt;&#xA;&lt;p&gt;테스트 진행 결과&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;1차 테스트&#xA;&lt;ul&gt;&#xA;&lt;li&gt;39:03 컨피그맵 업데이트 진행&lt;/li&gt;&#xA;&lt;li&gt;39:35 업데이트 완료 관측&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;2차 테스트&#xA;&lt;ul&gt;&#xA;&lt;li&gt;41:50 업데이트 진행&lt;/li&gt;&#xA;&lt;li&gt;42:10 완료&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;3차 테스트&#xA;&lt;ul&gt;&#xA;&lt;li&gt;42:50 업데이트 진행&lt;/li&gt;&#xA;&lt;li&gt;43:21 완료&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;3번의 실험 결과 약 30초 후 적용 되는것 확인 되었습니다.&lt;/p&gt;&#xA;&lt;p&gt;테스트를 해보았을떄 실제 특정 시간을 가지고 업데이트 된다는것이 확실시되어 실제 업데이트 시간이 더 궁금해졌습니다.&lt;/p&gt;&#xA;&lt;p&gt;때문에 쿠버네티스 공식문서를 찾아보았을때 다음과 같은 내용을 확인할 수 있었습니다.&lt;/p&gt;</description>
+    </item>
   </channel>
 </rss>

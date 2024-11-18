@@ -1,7 +1,7 @@
 {
 	"version": 3,
 	"file": "main.css",
-	"sourceRoot": "/Users/gyuseokjung/silium.life",
+	"sourceRoot": "/Users/gyuseokjung/gsjung/silium.life",
 	"sources": [
 		"themes/hugo-theme-nostyleplease/assets/css/main.scss"
 	],

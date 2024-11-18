@@ -23,7 +23,7 @@ title = "posts"
 [[entries]]
 title = "external posts"
 
-    [entries.external_post_list]
+    [entries.post_list2]
     limit = 5
     show_more = true
     show_more_text = "See archive..."
