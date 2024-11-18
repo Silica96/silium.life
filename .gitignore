@@ -32,3 +32,4 @@ node_modules/
 .env.production.local
 
 .themes/hugo-theme-nostyleplease/
+.public/
