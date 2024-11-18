@@ -1,0 +1,32 @@
+# Hugo 기본 생성 파일
+/public/
+/resources/_gen/
+/assets/jsconfig.json
+hugo_stats.json
+
+# Hugo 캐시 디렉토리
+.hugo_build.lock
+
+# OS 생성 파일
+.DS_Store
+Thumbs.db
+
+# 임시 파일
+*.log
+*.swp
+.env
+
+# IDE 관련 파일
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Node 모듈 (테마에서 사용하는 경우)
+node_modules/
+
+# 로컬 개발 환경 설정
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
