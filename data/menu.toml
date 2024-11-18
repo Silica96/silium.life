@@ -21,14 +21,5 @@ title = "posts"
     show_more_url = "posts"
 
 [[entries]]
-title = "external posts"
-
-    [entries.post_list2]
-    limit = 5
-    show_more = true
-    show_more_text = "See archive..."
-    show_more_url = "external-posts"
-
-[[entries]]
 title = "rss"
 url = "index.xml"
