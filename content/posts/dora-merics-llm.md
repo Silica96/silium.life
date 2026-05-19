@@ -218,3 +218,164 @@ commit
   → merge
   → deploy
   → production verification
+```
+
+LLM 도입 후 전체 Lead Time이 줄었다면 좋은 신호입니다. 하지만 어느 구간이 줄었는지를 봐야 합니다.
+
+- `commit → PR open`이 줄었다면 코드 작성과 PR 준비가 빨라진 것입니다.
+- `PR open → first review`가 늘었다면 리뷰 대기열이 병목이 된 것입니다.
+- `first review → approval`이 길어졌다면 AI가 만든 코드의 검증 비용이 커졌을 수 있습니다.
+- `merge → deploy`가 그대로라면 병목은 개발자가 아니라 CI/CD 파이프라인, 릴리스 정책, 보안·컴플라이언스 승인, 배포 window 같은 운영 거버넌스에 있을 수 있습니다.
+
+즉, PR 수나 리뷰 시간은 최종 목표가 아닙니다.
+
+> **DORA 메트릭을 해석하기 위한 하위 신호입니다.**
+
+---
+
+## 측정은 이렇게 시작하면 됩니다
+
+처음부터 완벽한 대시보드를 만들 필요는 없습니다. 중요한 것은 같은 정의로 꾸준히 보는 것입니다.
+
+먼저 서비스 단위로 시작하는 것이 좋습니다. 조직 전체 평균을 바로 내면 서비스별 맥락이 섞입니다. 어떤 서비스는 하루에도 여러 번 배포할 수 있지만, 어떤 서비스는 보안이나 규제 때문에 배포 주기가 느릴 수 있습니다.
+
+다음 순서로 시작하면 됩니다.
+
+### 1. 현재 흐름을 그립니다
+
+commit은 어디서 시작되는지, PR은 언제 열리는지, 리뷰는 언제 시작되는지, merge 후 배포까지 얼마나 걸리는지, 배포 후 검증은 어떻게 끝나는지 확인합니다.
+
+### 2. baseline을 잡습니다
+
+LLM 도구를 전사 도입하기 전에 몇 주에서 몇 달 정도 baseline을 잡는 것이 좋습니다. 이미 도입했다면 도입 이전 데이터를 가능한 범위에서 복원하거나, 팀별 AI 사용률 차이를 비교합니다.
+
+### 3. DORA 메트릭을 봅니다
+
+최소한 다음 지표를 봅니다.
+
+- Change Lead Time
+- Deployment Frequency
+- Change Fail Rate
+- Failed Deployment Recovery Time
+- Deployment Rework Rate
+
+### 4. 진단 지표를 함께 봅니다
+
+DORA 결과를 설명하기 위해 다음 지표를 함께 봅니다.
+
+- PR cycle time
+- Time to first review
+- Review time
+- Test failure rate
+- Merge-to-deploy time
+- Rollback / hotfix 비율
+
+### 5. AI 비용을 연결합니다
+
+AI 사용량은 성과가 아니라 비용과 설명 변수로 봅니다.
+
+- Token cost per successful change
+- Token cost per successful deployment
+- AI-assisted PR의 Change Fail Rate
+- AI-assisted PR의 review time
+- AI-assisted PR의 rework rate
+
+이렇게 봐야 “AI를 많이 썼다”가 아니라 “AI 사용이 실제 전달 성과로 이어졌다”고 말할 수 있습니다.
+
+---
+
+## AI-assisted PR 비교는 조심해야 합니다
+
+가능하다면 AI-assisted PR과 일반 PR을 비교하는 것이 좋습니다. 하지만 단순히 PR에 `ai-assisted: true`를 붙이는 방식은 한계가 있습니다.
+
+- 강제 태깅은 회피 동기를 만들 수 있습니다.
+- 자율 태깅은 누락이 많을 수 있습니다.
+- 개발자마다 “AI 도움”의 기준이 다를 수 있습니다.
+- AI 사용 여부가 개인 평가와 연결되면 데이터가 왜곡될 수 있습니다.
+
+따라서 PR label, AI 도구 사용 로그, IDE 또는 CLI 사용 이벤트, 개발자 설문, 코드 리뷰 샘플링 같은 여러 신호를 함께 보는 편이 좋습니다.
+
+또한 AI-assisted PR과 일반 PR을 비교할 때는 selection bias를 조심해야 합니다. 개발자가 쉬운 작업에 AI를 더 자주 쓴다면 AI-assisted PR이 더 빨라 보일 수 있습니다. 반대로 복잡한 작업에서만 AI를 호출한다면 AI-assisted PR이 더 느려 보일 수도 있습니다.
+
+그래서 비교할 때는 작업 유형, PR 크기, 변경 파일 수, 담당 서비스, 개발자 숙련도, 릴리스 기간 같은 맥락을 함께 봐야 합니다.
+
+---
+
+## Goodhart’s Law: 지표가 목표가 되면 망가집니다
+
+DORA 메트릭을 도입할 때 가장 조심해야 할 점이 있습니다.
+
+**지표를 목표로 만들면 안 됩니다.**
+
+- Deployment Frequency를 목표로 만들면 의미 없는 작은 배포를 늘릴 수 있습니다.
+- Lead Time만 압박하면 리뷰와 테스트를 건너뛸 수 있습니다.
+- Change Fail Rate만 낮추려 하면 위험하지만 필요한 변경을 회피할 수 있습니다.
+- AI 사용량을 목표로 만들면 필요 없는 토큰 사용과 형식적인 AI 사용이 늘 수 있습니다.
+
+그래서 DORA와 AI 사용량은 개인 평가에 쓰면 안 됩니다.
+
+Lead Time이 긴 개발자를 찾기 위한 도구가 아닙니다. PR 수가 적은 개발자를 압박하기 위한 도구도 아닙니다. AI 사용량이 적은 사람을 줄 세우기 위한 도구도 아닙니다.
+
+이 지표들은 시스템 개선을 위한 도구입니다.
+
+Lead Time이 길다면 “누가 느린가?”가 아니라 “어느 구간에서 대기가 발생하는가?”를 물어야 합니다.
+
+리뷰가 병목이면 리뷰어 풀을 늘리거나 PR 크기를 줄여야 합니다. 테스트가 병목이면 테스트 자동화와 병렬화를 개선해야 합니다. 배포가 병목이면 릴리스 정책, 승인 단계, feature flag, rollback 전략을 손봐야 합니다.
+
+---
+
+## 결론: LLM의 ROI는 사용량이 아니라 전달 성과로 봐야 합니다
+
+LLM은 개발자의 손을 빠르게 만들 수 있습니다. 하지만 고객은 개발자의 손이 얼마나 빨라졌는지가 아니라 제품이 얼마나 빠르고 안정적으로 개선되는지를 경험합니다.
+
+그래서 LLM 도입 효과를 말하려면 다음 질문에 답해야 합니다.
+
+- PR이 늘었나요? 좋습니다. 그 PR은 더 빨리 리뷰되고 있나요?
+- 코드 작성 시간이 줄었나요? 좋습니다. 그 변경은 더 빨리 프로덕션에 도달하나요?
+- AI 사용량이 늘었나요? 좋습니다. 그 사용량은 Lead Time 단축, 배포 빈도 증가, 실패율 감소로 이어졌나요?
+- 토큰을 많이 썼나요? 좋을 수도 있습니다. 하지만 그 토큰은 실제 고객 가치로 전환되었나요?
+
+LLM 도입을 반대하자는 이야기가 아닙니다. 오히려 제대로 쓰자는 이야기입니다.
+
+LLM을 도입합시다.  
+하지만 측정해야 합니다.
+
+토큰 사용량이 아니라 전달 성과를 봐야 합니다.  
+PR 수가 아니라 Change Lead Time을 봐야 합니다.  
+코드 생성량이 아니라 Change Fail Rate와 Deployment Rework Rate를 봐야 합니다.  
+개발자의 체감 속도와 함께 고객에게 도달하는 속도를 봐야 합니다.
+
+**LLM의 ROI는 “많이 썼다”로 증명되지 않습니다.**
+
+**더 빠르고, 더 안정적으로, 더 적은 재작업으로, 더 지속 가능한 방식으로 고객에게 변화를 전달했을 때 증명됩니다.**
+
+그걸 확인하기 위한 출발점은 DORA 메트릭입니다.
+
+하지만 거기서 멈추면 안 됩니다.
+
+LLM 시대의 개발 생산성 측정은 **DORA를 중심에 두되, DORA만으로 환원하지 않는 균형 잡힌 측정 체계**가 되어야 합니다.
+
+---
+
+## 참고자료
+
+- Microsoft Research, *The Impact of AI on Developer Productivity: Evidence from GitHub Copilot*  
+  https://www.microsoft.com/en-us/research/publication/the-impact-of-ai-on-developer-productivity-evidence-from-github-copilot/
+- METR, *Measuring the Impact of Early-2025 AI on Experienced Open-Source Developer Productivity*  
+  https://arxiv.org/abs/2507.09089
+- METR, *We are Changing our Developer Productivity Experiment Design*  
+  https://metr.org/blog/2026-02-24-uplift-update/
+- DORA, *DORA’s software delivery performance metrics*  
+  https://dora.dev/guides/dora-metrics/
+- DORA, *A history of DORA’s software delivery metrics*  
+  https://dora.dev/insights/dora-metrics-history/
+- DORA, *Balancing AI tensions: Moving from AI adoption to effective SDLC use*  
+  https://dora.dev/insights/balancing-ai-tensions/
+- Google Blog, *How are developers using AI? Inside our 2025 DORA report*  
+  https://blog.google/innovation-and-ai/technology/developers-tools/dora-report-2025/
+- Faros AI, *The AI Productivity Paradox Report 2025*  
+  https://www.faros.ai/blog/ai-software-engineering
+- ACM Queue, *The SPACE of Developer Productivity*  
+  https://queue.acm.org/detail.cfm?id=3454124
+- ACM Queue, *DevEx: What Actually Drives Productivity*  
+  https://queue.acm.org/detail.cfm?id=3595878
